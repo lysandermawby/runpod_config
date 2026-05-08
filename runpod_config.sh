@@ -8,8 +8,13 @@ Includes downloading certain utilities, setting up very common shell aliases, an
 EOF
 
 # install brew if not already installed
-if ! command -v brew 2>/dev/null; then
+if ! command -v brew &>/dev/null; then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# add brew to the PATH
+if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 # install basic devtools through brew (if not already installed)
@@ -21,8 +26,12 @@ command -v nvim &>/dev/null || brew install neovim
 export UV_CACHE_DIR='/dev/shm/uv/'
 export HF_HOME='/dev/shm/hf/'
 
-# set this script to be part of the bashrc
+# add brew shellenv and this script to bashrc
 SCRIPT_PATH="$(realpath "$0")"
+BREW_SHELLENV='eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+
+# writing to the ~/.bashrc file
+grep -qxF "$BREW_SHELLENV"      ~/.bashrc || echo "$BREW_SHELLENV"      >> ~/.bashrc
 grep -qxF "source \"$SCRIPT_PATH\"" ~/.bashrc || echo "source \"$SCRIPT_PATH\"" >> ~/.bashrc
 
 # set up some really common aliases I don't want to do without
