@@ -27,7 +27,7 @@ export UV_CACHE_DIR='/dev/shm/uv/'
 export HF_HOME='/dev/shm/hf/'
 
 # add brew shellenv and this script to bashrc
-SCRIPT_PATH="$(realpath "$0")"
+SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]}")"
 BREW_SHELLENV='eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
 
 # writing to the ~/.bashrc file
