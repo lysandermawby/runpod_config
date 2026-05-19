@@ -24,6 +24,7 @@ command -v nvim &>/dev/null || brew install neovim
 # set the download destinations of frequent large files to shared memory
 # note that if a network volume is used, this will not direct downloads to it and these vars should be changed manually
 export UV_CACHE_DIR='/dev/shm/uv/'
+export UV_PROJECT_ENVIRONMENT='/dev/shm/venv/'
 export HF_HOME='/dev/shm/hf/'
 
 # add brew shellenv and this script to bashrc
